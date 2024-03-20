@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="flash-{{ category }}" style="color: red;">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<h1>Статистика</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Имя</th>
+        <th>Побед</th>
+        <th>Поражений</th>
+        <th>КД</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for fighter in fighters %}
+    <tr>
+        <td>
+                <a href="{{ url_for('fighter_profile', fighter_id=fighter._id) }}">{{ fighter.name }}</a>
+        </td>
+        <td>{{ fighter.wins }}</td>
+        <td>{{ fighter.loses }}</td>
+        <td>{{ fighter.kd }}</td>
+        <td>
+            <form method="POST" action="#">
+                <input type="hidden" name="delete" value="{{ fighter._id }}">
+                <input type="submit" value="Удалить">
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<h1>Добавить бойца</h1>
+<form method="POST" action="#">
+    <input type="text" id="name" name="name" required>
+    <input type="submit" value="Создать бойца">
+</form>
+{% endblock %}

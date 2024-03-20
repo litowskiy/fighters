@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Статистика бойца {{fighter.name}}</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Побед</th>
+            <th>Поражений</th>
+            <th>КД</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ fighter.name }}</td>
+            <td>{{ fighter.wins }}</td>
+            <td>{{ fighter.loses }}</td>
+            <td>{{ fighter.kd }}</td>
+        </tr>
+    </tbody>
+</table>
+<h1>Статистика боев по бойцам</h1>
+    {% for fight in fight_record %}
+        {% if fighter.name %}
+            {% if fighter.name == fight.fighter1 %}
+                <p>{{fight.fighter1}} {{fight.total_score1}} - {{fight.total_score2}} {{fight.fighter2}}</p>
+            {% else %}
+                <p>{{fight.fighter2}} {{fight.total_score2}} - {{fight.total_score1}} {{fight.fighter1}}</p>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+<h1>Статистика всех боев</h1>
+{% for fight in fights_with_fighter %}
+    {% if fighter.name == fight.winner_name %}
+        <p style="color: green;">{{fight.fighter1}} {{fight.score1}} - {{fight.score2}} {{fight.fighter2}}</p>
+    {% else %}
+        <p style="color: red;">{{fight.fighter1}} {{fight.score1}} - {{fight.score2}} {{fight.fighter2}}</p>
+    {% endif %}
+{% endfor %}
+{% endblock %}

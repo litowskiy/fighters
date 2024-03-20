@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>История тренировок</h3>
+<ul>
+    {% for session in sessions %}
+        <li>
+            <a href="{{ url_for('view_session', session_id=session._id) }}">{{ session.name }}</a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Перед началом тренировки отметьте присутствующих</h3>
+<form method="POST" action="/training">
+    <table>
+        <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Побед</th>
+            <th>Поражений</th>
+            <th>КД</th>
+            <th>Присутствие</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for fighter in fighters %}
+        <tr>
+            <td>{{ fighter.name }}</td>
+            <td>{{ fighter.wins }}</td>
+            <td>{{ fighter.loses }}</td>
+            <td>{{ fighter.kd }}</td>
+            <td>
+                <input type="checkbox" id="fighter_{{ fighter._id }}" name="attended" value="{{ fighter._id }}">
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <input type="submit" value="Начать тренировку">
+</form>
+{% endblock %}

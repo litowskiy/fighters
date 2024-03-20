@@ -1,0 +1,26 @@
+{% block content %}
+<h3>Шахматка</h3>
+<form method="post" action="/round_robin">
+    {% for round_num, round_matches in schedule %}
+    <fieldset>
+        <legend><b>Круг {{ round_num + 1 }}:</b></legend>
+        {% for match in round_matches %}
+        <div>
+            {% if 'skip' in match %}
+                {% if match[0] != 'skip' %}
+                    <p>{{ match[0] }} пропускает этот круг.</p>
+                {% else %}
+                    <p>{{ match[1] }} пропускает этот круг.</p>
+                {% endif %}
+            {% else %}
+                <div>{{ match[0] }} vs {{ match[1] }}:</div>
+                <input type="number" name="points[{{ round_num }}][{{ loop.index0 }}][{{ match[0] }}]" placeholder="{{ match[0] }} points" min="0" value="0">
+                <input type="number" name="points[{{ round_num }}][{{ loop.index0 }}][{{ match[1] }}]" placeholder="{{ match[1] }} points" min="0" value="0">
+            {% endif %}
+        </div>
+        {% endfor %}
+    </fieldset>
+    {% endfor %}
+    <button type="submit">Подтвердить результаты</button>
+</form>
+{% endblock %}
