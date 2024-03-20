@@ -217,4 +217,4 @@ def create_schedule(fighters):
 
 if __name__ == '__main__':
     app.secret_key = '123'
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
